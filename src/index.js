@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import _ from 'lodash';
 
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
@@ -17,7 +18,7 @@ class App extends Component {
 			results: []
 		}
 
-		this.flickrSearch('');
+		this.flickrSearch('surfboards');
 	};
 
 	// need: https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
@@ -27,21 +28,25 @@ class App extends Component {
 	// secret
 
 	flickrSearch(term){
-		const url = 'https://api.flickr.com/services/rest/?&method=flickr.photos.search&api_key=9385403d1d75fd9c66a587d021cbfc3a&per_page=8&text="words"&format=json&jsoncallback=?';
+		const url = `https://api.flickr.com/services/rest/?&method=flickr.photos.search&api_key=9385403d1d75fd9c66a587d021cbfc3a&per_page=8&text="${term}"&sort="interestingness-desc"&format=json&jsoncallback=?`;
 		$.getJSON(url)
   			.done((data) => {
-  				var first = data.photos.photo[0];
-				this.setState({
-					display: `https://farm${first.farm}.staticflickr.com/${first.server}/${first.id}_${first.secret}.jpg`,
-					results: data.photos.photo
-				});
+  				if(data.photos.photo[0]){
+	  				var first = data.photos.photo[0];
+					this.setState({
+						display: `https://farm${first.farm}.staticflickr.com/${first.server}/${first.id}_${first.secret}.jpg`,
+						results: data.photos.photo
+					});  					
+  				}
+
 			});
 	}
 
 	render(){
+
 	return(
 			<div className="container">
-				<SearchBar />
+				<SearchBar onSearchTermChange={term => this.flickrSearch(term)}/>
 				<BooruDisplay display={this.state.display} />
 				<SearchResults results={this.state.results} />
 			</div>
