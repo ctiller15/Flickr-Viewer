@@ -25,7 +25,10 @@ const SearchResultItem = (props) => {
 
 	let photo = `https://farm${props.farm}.staticflickr.com/${props.server}/${props.id}_${props.secret}.jpg`;
 	return(
-			<div onClick={() => props.onImageSelect(photo)} style={divStyle}>
+			<div 
+				onClick={() => props.onImageSelect(photo)}
+				onMouseOver={function(){ this.style.background = 'red'}}
+				style={divStyle}>
 				<img className="img-thumbnail" style={imgStyle} src={photo}/>
 			</div>
 		)

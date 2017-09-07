@@ -54,7 +54,9 @@ class App extends Component {
 			padding: '1%',
 			position: 'relative',
 			top: '0',
-			color: 'rgb(255,255,255)'
+			color: 'rgb(255,255,255)',
+			fontFamily: 'Istok Web',
+			fontWeight: 'bold'
 		}
 	return(
 			<div className="" style={containerStyle}>
