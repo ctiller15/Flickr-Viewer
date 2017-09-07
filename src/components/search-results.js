@@ -4,8 +4,9 @@ import SearchResultItem from './search-result-item';
 const SearchResults = (props) => {
 	const SearchItems = props.results.map((photo) => {
 		return(
-				<div className="col-xs-3">
-					<SearchResultItem 
+				<div className="col-xs-2">
+					<SearchResultItem
+						onImageSelect={props.onImageSelect} 
 						farm={photo.farm}
 						server={photo.server}
 						id={photo.id}
@@ -13,13 +14,18 @@ const SearchResults = (props) => {
 					/>
 				</div>
 			)
-	})
+	});
+
+	const searchResultStyle = {
+		// background: 'yellow'
+	}
+
 	return(
-		<div className="container">
-			<div className="row">
-				{ SearchItems }
+			<div className="container">
+				<div className="row" style={searchResultStyle}>
+					{ SearchItems }
+				</div>
 			</div>
-		</div>
 		)
 
 }

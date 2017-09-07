@@ -28,7 +28,7 @@ class App extends Component {
 	// secret
 
 	flickrSearch(term){
-		const url = `https://api.flickr.com/services/rest/?&method=flickr.photos.search&api_key=9385403d1d75fd9c66a587d021cbfc3a&per_page=8&text="${term}"&sort="interestingness-desc"&format=json&jsoncallback=?`;
+		const url = `https://api.flickr.com/services/rest/?&method=flickr.photos.search&api_key=9385403d1d75fd9c66a587d021cbfc3a&per_page=12&text="${term}"&sort="interestingness-desc"&format=json&jsoncallback=?`;
 		$.getJSON(url)
   			.done((data) => {
   				if(data.photos.photo[0]){
@@ -43,12 +43,27 @@ class App extends Component {
 	}
 
 	render(){
+		const flickrSearch = _.debounce((term) => { this.flickrSearch(term) }, 300);
 
+		const containerStyle = {
+		}
+
+		const headerStyle = {
+			background: 'rgb(20,20,22)',			
+			margin: '0',
+			padding: '1%',
+			position: 'relative',
+			top: '0',
+			color: 'rgb(255,255,255)'
+		}
 	return(
-			<div className="container">
-				<SearchBar onSearchTermChange={term => this.flickrSearch(term)}/>
+			<div className="" style={containerStyle}>
+				<h1 className="text-center" style={headerStyle}>Flickr Viewer</h1>
+				<SearchBar onSearchTermChange={flickrSearch}/>
 				<BooruDisplay display={this.state.display} />
-				<SearchResults results={this.state.results} />
+				<SearchResults 
+				onImageSelect={display => this.setState({display}) }
+				results={this.state.results} />
 			</div>
 		);
 	};

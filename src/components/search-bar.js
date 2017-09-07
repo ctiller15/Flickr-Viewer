@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
 const barStyle = {
-	margin: '5% 0'
+	background: 'rgb(20,20,22)'
 }
 
 const inputStyle = {
-	width: '75%',
-	margin: '0 12.5%'
+	width: '50%',
+	margin: '1% auto'
 }
 
 class SearchBar extends Component {
@@ -19,11 +19,17 @@ class SearchBar extends Component {
 	}
 
 	render() {
+
+		
 		return (
-			<div className="search-bar col-xs-12" style={barStyle}>
-				<input className="form-control" style={inputStyle} type="text"
-				value={this.state.term}
-				onChange={(event) => this.onInputChange(event.target.value)}/>
+			<div className="container-fluid">
+				<div className="row">
+					<div className="col-xs-12" style={barStyle}>
+						<input className="form-control" style={inputStyle} type="text" placeholder="search Flickr, Example: 'surfboards'"
+						value={this.state.term}
+						onChange={(event) => this.onInputChange(event.target.value)}/>
+					</div>
+				</div>
 			</div>
 		);
 	}
